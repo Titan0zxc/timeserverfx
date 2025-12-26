@@ -22,8 +22,8 @@
 
 **Скриншот рабочего окна приложения**:  
 
-<!-- TODO: добавить скриншот -->
-<!-- ![screenshot](screenshot.png) -->
+
+ ![screenshot](screenshot.png)
 
 ---
 

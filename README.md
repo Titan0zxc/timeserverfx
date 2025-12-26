@@ -38,13 +38,13 @@
 ### Диаграммы
 
 **Use Case Diagram**  
-![Use Case](uml/use_case.puml)
+![Use Case](uml/use_case.png)
 
 **Class Diagram**  
-![Class Diagram](uml/class_diagram.puml)
+![Class Diagram](uml/class_diagram.png)
 
 **Sequence Diagram**  
-![Sequence Diagram](uml/sequence_diagram.puml)
+![Sequence Diagram](uml/sequence_diagram.png)
 
 ### Назначение пакетов `src`
 

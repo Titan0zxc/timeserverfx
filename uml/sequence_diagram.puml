@@ -1,0 +1,14 @@
+@startuml
+
+participant TimeServer
+participant TextClock
+participant CircleClock
+
+TimeServer -> TimeServer : tick()
+TimeServer -> TextClock : update()
+TimeServer -> CircleClock : update()
+
+TextClock -> TextClock : update UI text
+CircleClock -> CircleClock : rotate shape
+
+@enduml

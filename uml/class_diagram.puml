@@ -1,0 +1,42 @@
+@startuml
+
+interface Subject {
+    +attach(observer)
+    +detach(observer)
+    +notifyAllObservers()
+    +getState()
+}
+
+interface IObserver {
+    +update(subject)
+}
+
+class TimeServer {
+    -timeState : int
+    -timer : Timer
+    +getState()
+}
+
+Subject <|.. TimeServer
+IObserver <|.. TextClock
+IObserver <|.. CircleClock
+
+TimeServer "1" o-- "*" IObserver : notifies
+
+class TextClock
+class CircleClock
+
+interface ClockDecorator {
+    +draw(node)
+}
+
+abstract class BaseDecorator {
+    -decorator : ClockDecorator
+}
+
+class ShadowDecorator
+
+ClockDecorator <|.. BaseDecorator
+BaseDecorator <|-- ShadowDecorator
+
+@enduml

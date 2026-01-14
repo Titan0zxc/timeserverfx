@@ -1,42 +1,51 @@
+```plantuml
 @startuml
+skinparam monochrome true
 
 interface Subject {
-    +attach(observer)
-    +detach(observer)
+    +attach(observer: IObserver)
+    +detach(observer: IObserver)
     +notifyAllObservers()
-    +getState()
+    +getState(): int
 }
 
 interface IObserver {
-    +update(subject)
+    +update(subject: Subject)
 }
 
-class TimeServer {
-    -timeState : int
-    -timer : Timer
-    +getState()
+class TimeServer implements Subject {
+    -timeState: int
+    -timer: Timer
+    -observers: List<IObserver>
+    +startServer()
+    +stopServer()
+    +resetState()
 }
 
-Subject <|.. TimeServer
-IObserver <|.. TextClock
-IObserver <|.. CircleClock
-
-TimeServer "1" o-- "*" IObserver : notifies
-
-class TextClock
-class CircleClock
+class TextClock extends Label implements IObserver
+class DigitalClock extends Label implements IObserver
+class AnalogClock extends Pane implements IObserver
 
 interface ClockDecorator {
-    +draw(node)
+    +draw(node: Node)
 }
 
-abstract class BaseDecorator {
-    -decorator : ClockDecorator
+abstract class BaseDecorator implements ClockDecorator {
+    #decorator: ClockDecorator
 }
 
-class ShadowDecorator
+class ShadowDecorator extends BaseDecorator
+class GlowDecorator extends BaseDecorator
 
-ClockDecorator <|.. BaseDecorator
+Subject <|-- TimeServer
+IObserver <|-- TextClock
+IObserver <|-- DigitalClock
+IObserver <|-- AnalogClock
+
+ClockDecorator <|-- BaseDecorator
 BaseDecorator <|-- ShadowDecorator
+BaseDecorator <|-- GlowDecorator
 
+TimeServer o--> "many" IObserver : notifies
+AnalogClock --> ClockDecorator : decorated by
 @enduml

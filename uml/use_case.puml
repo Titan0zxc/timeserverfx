@@ -1,13 +1,25 @@
 @startuml
-left to right direction
+skinparam monochrome true
 
-actor User
+actor Пользователь
 
-rectangle "TimeServer FX Application" {
-    User --> (Start Time Server)
-    User --> (Observe Time Flow)
-    User --> (View Animated Clock)
-    User --> (Apply Visual Decoration)
-}
+usecase "Запустить таймер" as UC1
+usecase "Остановить таймер" as UC2
+usecase "Сбросить счётчик" as UC3
+usecase "Наблюдать за временем" as UC4
+
+Пользователь --> UC1
+Пользователь --> UC2
+Пользователь --> UC3
+Пользователь --> UC4
+
+UC4 .> UC1 : <<extends>>
+
+note right of UC4
+  · Текстовый счётчик
+  · Цифровые часы MM:SS
+  · Аналоговые часы
+  · Лог сообщений
+end note
 
 @enduml

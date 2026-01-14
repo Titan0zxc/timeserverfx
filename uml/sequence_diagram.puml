@@ -1,14 +1,23 @@
 @startuml
+skinparam monochrome true
 
+participant Main
 participant TimeServer
 participant TextClock
-participant CircleClock
+participant AnalogClock
+participant DigitalClock
+participant ShadowDecorator
 
-TimeServer -> TimeServer : tick()
-TimeServer -> TextClock : update()
-TimeServer -> CircleClock : update()
+Main -> TimeServer: startServer()
 
-TextClock -> TextClock : update UI text
-CircleClock -> CircleClock : rotate shape
+loop every 1 second
+    TimeServer -> TimeServer: tick() → timeState++
+    TimeServer -> TextClock: update(this)
+    TimeServer -> AnalogClock: update(this)
+    TimeServer -> DigitalClock: update(this)
+    AnalogClock -> ShadowDecorator: checkAndSendMessage() (каждые 60 сек)
+    AnalogClock -> GlowDecorator: draw()
+    AnalogClock -> ShadowDecorator: draw()
+end
 
 @enduml
